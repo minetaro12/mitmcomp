@@ -21,3 +21,8 @@ $ ./mitmcomp -br true
 ```
 $ docker run -it --rm -v ./ca:/app/ca -p 8080:8080 ghcr.io/minetaro12/mitmcomp
 ```
+
+## Thanks
+- https://github.com/lqqyt2423/go-mitmproxy
+- https://github.com/andybalholm/brotli
+- https://github.com/chai2010/webp
