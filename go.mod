@@ -2,15 +2,7 @@ module mitmcomp
 
 go 1.20
 
-require (
-	github.com/lqqyt2423/go-mitmproxy v1.3.4
-	github.com/tdewolff/minify v2.3.6+incompatible
-)
-
-require (
-	github.com/tdewolff/parse v2.3.4+incompatible // indirect
-	github.com/tdewolff/test v1.0.7 // indirect
-)
+require github.com/lqqyt2423/go-mitmproxy v1.3.4
 
 require (
 	github.com/andybalholm/brotli v1.0.4
