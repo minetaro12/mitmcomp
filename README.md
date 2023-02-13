@@ -11,10 +11,10 @@ $ go build
 $ ./mitmcomp
 
 #ポートを指定して実行
-$ ./mitmcomp -p 8000
+$ ./mitmcomp -p=8000
 
 #brotli圧縮を有効にする
-$ ./mitmcomp -br true
+$ ./mitmcomp -br=true
 ```
 
 ## Docker
