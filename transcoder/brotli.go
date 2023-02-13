@@ -13,25 +13,20 @@ import (
 
 func Recompress(f *proxy.Flow) error {
 	if f.Response.Header.Get("Content-Encoding") == "gzip" && strings.Contains(f.Request.Header.Get("Accept-Encoding"), "br") {
-		var rawBuffer = new(bytes.Buffer)
 
 		// gzipを展開
-		gzReader, err := gzip.NewReader(bytes.NewReader(f.Response.Body))
+		raw, err := gzipDecompress(f.Response.Body)
 		if err != nil {
 			return err
 		}
 
-		io.Copy(rawBuffer, gzReader)
-
 		// brotliで圧縮
-		var brBuffer bytes.Buffer
-		brWriter := brotli.NewWriter(&brBuffer)
-		brWriter.Write(rawBuffer.Bytes())
-		if err = brWriter.Close(); err != nil {
+		br, err := brotliCompress(raw)
+		if err != nil {
 			return err
 		}
 
-		f.Response.Body = brBuffer.Bytes()
+		f.Response.Body = br
 
 		// ヘッダーの書き換え
 		f.Response.Header.Del("Content-Encoding")
@@ -41,14 +36,12 @@ func Recompress(f *proxy.Flow) error {
 	} else if f.Response.Header.Get("Content-Encoding") == "" && strings.Contains(f.Request.Header.Get("Accept-Encoding"), "br") {
 
 		// brotliで圧縮
-		var brBuffer bytes.Buffer
-		brWriter := brotli.NewWriter(&brBuffer)
-		brWriter.Write(f.Response.Body)
-		if err := brWriter.Close(); err != nil {
+		br, err := brotliCompress(f.Response.Body)
+		if err != nil {
 			return err
 		}
 
-		f.Response.Body = brBuffer.Bytes()
+		f.Response.Body = br
 
 		// ヘッダーの書き換え
 		f.Response.Header.Del("Content-Encoding")
@@ -58,4 +51,26 @@ func Recompress(f *proxy.Flow) error {
 	} else {
 		return errors.New("can't compress")
 	}
+}
+
+func gzipDecompress(i []byte) ([]byte, error) {
+	gzReader, err := gzip.NewReader(bytes.NewReader(i))
+	if err != nil {
+		return nil, err
+	}
+	var rawBuffer = new(bytes.Buffer)
+	io.Copy(rawBuffer, gzReader)
+
+	return rawBuffer.Bytes(), nil
+}
+
+func brotliCompress(i []byte) ([]byte, error) {
+	var brBuffer = new(bytes.Buffer)
+	brWriter := brotli.NewWriter(brBuffer)
+	brWriter.Write(i)
+	if err := brWriter.Close(); err != nil {
+		return nil, err
+	}
+
+	return brBuffer.Bytes(), nil
 }
