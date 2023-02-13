@@ -17,6 +17,7 @@ func (a *MinifyAddon) Response(f *proxy.Flow) {
 	if strings.Contains(f.Response.Header.Get("Content-Type"), "image/") {
 		// 画像の圧縮
 		transcoder.ImgRecompress(f, *imgQuality)
+		debug(originalSize, len(f.Response.Body), "img", f)
 		minifyLog(originalSize, len(f.Response.Body), f.Request.URL)
 	} else {
 		if *brotliComp {
@@ -24,6 +25,7 @@ func (a *MinifyAddon) Response(f *proxy.Flow) {
 			if err := transcoder.Recompress(f); err != nil {
 				return
 			}
+			debug(originalSize, len(f.Response.Body), "brotli", f)
 			minifyLog(originalSize, len(f.Response.Body), f.Request.URL)
 		} else {
 			return

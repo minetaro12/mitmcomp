@@ -14,10 +14,14 @@ var (
 	caPath     = flag.String("ca", "./ca", "ca certificates")
 	imgQuality = flag.Int("q", 10, "webp quality")
 	brotliComp = flag.Bool("br", false, "brotli recompression")
+	debugMode  = flag.Bool("d", false, "debug mode")
 )
 
 func main() {
 	flag.Parse()
+	if *debugMode {
+		log.Println("Debug Mode")
+	}
 	opts := &proxy.Options{
 		Addr:              fmt.Sprintf("%v:%v", *bindAddr, *bindPort),
 		CaRootPath:        *caPath,
