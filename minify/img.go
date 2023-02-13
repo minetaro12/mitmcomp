@@ -1,4 +1,4 @@
-package imgcomp
+package minify
 
 import (
 	"bytes"
@@ -10,7 +10,7 @@ import (
 	"github.com/chai2010/webp"
 )
 
-func ImageCompress(i []byte, q int) ([]byte, error) {
+func ImgMinify(i []byte, q int) ([]byte, error) {
 	img, _, err := image.Decode(bytes.NewReader(i))
 	if err != nil {
 		return nil, err
