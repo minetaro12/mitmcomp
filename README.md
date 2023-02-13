@@ -20,6 +20,9 @@ $ ./mitmcomp -br true
 ## Docker
 ```
 $ docker run -it --rm -v ./ca:/app/ca -p 8080:8080 ghcr.io/minetaro12/mitmcomp
+
+#docker compose
+$ docker compose up -d
 ```
 
 ## Thanks

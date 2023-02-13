@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  server:
+    #build: .
+    image: ghcr.io/minetaro12/mitmcomp:latest
+    restart: always
+    ports:
+      - 8080:8080
+    volumes:
+      - ./ca:/app/ca
+    #command: '/app/mitmcomp -br true'
