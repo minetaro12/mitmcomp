@@ -2,7 +2,7 @@ module mitmcomp
 
 go 1.20
 
-require github.com/lqqyt2423/go-mitmproxy v1.3.4
+require github.com/lqqyt2423/go-mitmproxy v1.5.0
 
 require (
 	github.com/andybalholm/brotli v1.0.4
