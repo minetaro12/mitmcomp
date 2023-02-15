@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/h2non/bimg v1.1.9
-	github.com/lqqyt2423/go-mitmproxy v1.3.4
+	github.com/lqqyt2423/go-mitmproxy v1.5.0
 )
 
 require (
