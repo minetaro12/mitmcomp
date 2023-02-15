@@ -1,16 +1,12 @@
-FROM golang:1.20.0 AS builder
+FROM golang:1.20.0-alpine3.17 AS builder
 
 WORKDIR /work
 COPY . ./
-RUN apt update && \
-    apt install --no-install-recommends -y libvips-dev && \
+RUN apk add --no-cache alpine-sdk vips-dev && \
     go build
 
-FROM debian:bullseye-slim
-RUN apt update && \
-    apt install --no-install-recommends -y libvips ca-certificates && \
-    apt clean && \
-    rm -rf /var/lib/apt/lists/*
+FROM alpine:3.17.2
+RUN apk add --no-cache vips
 WORKDIR /app
 COPY --from=builder /work/mitmcomp /app
 
