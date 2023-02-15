@@ -7,10 +7,8 @@ import (
 )
 
 func debug(bs int, as int, m string, f *proxy.Flow) {
-	if *debugMode {
-		p := (float32(as) / float32(bs)) * 100
-		str := fmt.Sprintf("%v%%", p)
-		f.Response.Header.Add("Mitmcomp", m)
-		f.Response.Header.Add("Mitmcomp-Debug", str)
-	}
+	p := (float32(as) / float32(bs)) * 100
+	str := fmt.Sprintf("%v%%", p)
+	f.Response.Header.Add("Mitmcomp", m)
+	f.Response.Header.Add("Mitmcomp-Debug", str)
 }
