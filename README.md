@@ -28,4 +28,4 @@ $ docker compose up -d
 ## Thanks
 - https://github.com/lqqyt2423/go-mitmproxy
 - https://github.com/andybalholm/brotli
-- https://github.com/chai2010/webp
+- https://github.com/h2non/bimg
