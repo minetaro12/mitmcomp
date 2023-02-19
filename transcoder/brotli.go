@@ -58,15 +58,15 @@ func gzipDecompress(i []byte) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	var rawBuffer = new(bytes.Buffer)
-	io.Copy(rawBuffer, gzReader)
+	var rawBuffer bytes.Buffer
+	io.Copy(&rawBuffer, gzReader)
 
 	return rawBuffer.Bytes(), nil
 }
 
 func brotliCompress(i []byte) ([]byte, error) {
-	var brBuffer = new(bytes.Buffer)
-	brWriter := brotli.NewWriter(brBuffer)
+	var brBuffer bytes.Buffer
+	brWriter := brotli.NewWriter(&brBuffer)
 	brWriter.Write(i)
 	if err := brWriter.Close(); err != nil {
 		return nil, err
