@@ -16,10 +16,6 @@ func ImgMinify(i []byte, q int) ([]byte, error) {
 		return nil, err
 	}
 
-	if err != nil {
-		return nil, err
-	}
-
 	buffer := new(bytes.Buffer)
 	err = webp.Encode(buffer, img, &webp.Options{Quality: float32(q), Lossless: false})
 	if err != nil {
