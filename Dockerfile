@@ -1,4 +1,4 @@
-FROM golang:1.20.4 AS builder
+FROM golang:1.21.0-bullseye AS builder
 
 WORKDIR /work
 COPY . ./
